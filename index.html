@@ -1,0 +1,90 @@
+<html> 
+<head>
+<title>DOM JS QR-code generator</title>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head> 
+<body> 
+<!-- refresh connection every 5000ms-->
+<script>
+var tmp;
+function f1() {
+            tmp = setTimeout("callitrept()", 0);
+        }
+function callitrept() {
+            document.getElementById("connect").click();
+        }
+
+setInterval(click, 5000);
+ 
+function click()
+{
+  $("#connect").click();
+}	
+<!-- /refresh every ..  -->
+<!-- refresh hidden div for qrcode-->
+var tmp2;
+function f1() {
+            tmp2 = setTimeout("qrrefresh()", 0);
+        }
+function qrrefresh() {
+            document.getElementById("buttonrefresh").click();
+        }
+
+setInterval(click, 5000);
+ 
+function click()
+{
+  $("#buttonrefresh").click();
+}	
+<!-- refresh hidden div for qrcode -->
+<!-- refresh generate qrcode-->
+$( function() {
+    $('#gen').click(function() {
+    });
+    
+    setTimeout(function() {
+        $('#gen').trigger('click');
+    }, 8e3);
+});
+<!-- refresh qrcode -->
+</script>
+  <div id="actions" style="margin:0 0 0 5%;">
+ 
+  
+  <h3 style="color:#12C931;">Generate a dedicated QRcode locally on the fly.</h3><p><a href="http://cryptop.at">Retour au sommaire</a><br>
+1- Get a DOM variable generated after page have fully load<br>
+2- Then append it to a new part like an url <br>
+3- Generate QRcode locally trough qrcode.js <br>
+  <div>
+	<div id="output" style="text-align:center;margin:0 0 0 -90px;"><img src="#" id="outputimg" alt="qrcode généré ici"></div>
+	<textarea name="data" id="data" style="height:23px;width:460px;padding:0 0 0 6px;text-align:center">http://cryptop.at</textarea>
+		<label style="display:none" for="ecclevel">Niveau de redondance des données :</label> 
+		<select name="ecclevel" id="ecclevel" onchange="return go();" style="display:none;">
+			<option value="L">L (faible ~7%)</option>
+			<option value="M" selected="selected">M (moyen ~15%)</option>
+			<option value="Q">Q (quart ~25%)</option>
+			<option value="H">H (haut ~30%)</option>
+		</select>
+<p>
+	<button onclick="go();" id="gen" style="display:none;"></button>
+
+  <div>
+  <table col="10">
+    This could be a variable: <span id="pid" style="color:magenta;">This_is_a_variable!</span><br>
+	<input id="buttonrefresh" style="display:none" type="button" onclick="document.getElementById('data').innerHTML='http://cryptop.at/p2pchat.php?daemon='+document.getElementById('pid').innerHTML"/>
+
+<script src="js/qrcode.js"></script>
+<script>
+function go() {
+	var data = document.getElementById('data').value;
+	var options = {ecclevel: document.getElementById('ecclevel').value};
+	var url = QRCode.generatePNG(data, options);
+	document.getElementById('outputimg').src = url;
+	return false;
+    }
+       go();
+</script>
+
+
+</body> 
+</html> 
